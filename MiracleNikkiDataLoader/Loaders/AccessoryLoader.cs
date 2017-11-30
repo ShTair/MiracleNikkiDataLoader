@@ -9,6 +9,8 @@ namespace MiracleNikkiDataLoader.Loaders
     [Export(typeof(ILoader))]
     class AccessoryLoader : ILoader
     {
+        public string Name { get; } = "7_Accessory";
+
         public AccessoryLoader() { }
 
         public async Task<IEnumerable<Item>> LoadItems()

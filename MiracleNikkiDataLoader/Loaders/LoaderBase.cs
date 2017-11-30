@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MiracleNikkiDataLoader.Loaders
 {
-    abstract class LoaderBase : ILoader
+    abstract class LoaderBase
     {
         private string _url;
         private Func<int, string> _kindGetter;

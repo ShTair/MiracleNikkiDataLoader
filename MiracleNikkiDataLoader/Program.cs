@@ -29,8 +29,7 @@ namespace MiracleNikkiDataLoader
             var tasks = loaders.Select(loader => Task.Run(async () =>
             {
                 var items = (await loader.LoadItems()).OrderBy(t => t.Id).ToList();
-                var name = loader.GetType().Name;
-                var path = Path.Combine(dir, $"{name.Remove(name.Length - 6)}.csv");
+                var path = Path.Combine(dir, $"{loader.Name}.csv");
 
                 try
                 {

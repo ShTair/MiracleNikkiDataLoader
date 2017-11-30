@@ -6,6 +6,8 @@ namespace MiracleNikkiDataLoader.Loaders
 {
     interface ILoader
     {
+        string Name { get; }
+
         Task<IEnumerable<Item>> LoadItems();
     }
 }
