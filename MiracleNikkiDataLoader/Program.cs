@@ -42,6 +42,8 @@ namespace MiracleNikkiDataLoader
                             csv.Configuration.HasHeaderRecord = false;
                             csv.WriteRecords(items);
                         }
+
+                        Console.WriteLine($"{loader.Name} {items.Count}");
                     }
                 }
                 catch (Exception exp) { Console.WriteLine(exp); }
