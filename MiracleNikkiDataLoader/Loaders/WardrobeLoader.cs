@@ -19,16 +19,35 @@ namespace MiracleNikkiDataLoader.Loaders
             engine.Execute(js);
 
             var wardrobe = GetObject(engine, "wardrobe", ConvertToItem);
-
         }
 
         private Item ConvertToItem(dynamic src)
         {
-            return new Item
+            var item = new Item
             {
                 Id = int.Parse((string)src[2]),
+                Name = "？",
                 Type = TranslateType((string)src[1]),
+                Stars = int.Parse((string)src[3]),
+
+                Gorgeous = (string)src[4],
+                Simple = (string)src[5],
+                Elegant = (string)src[6],
+                Active = (string)src[7],
+                Mature = (string)src[8],
+                Cute = (string)src[9],
+                Sexy = (string)src[10],
+                Pure = (string)src[11],
+                Cool = (string)src[12],
+                Warm = (string)src[13],
             };
+
+            if (item.Type != "？")
+            {
+                item.Extra = string.Join(" ", ((string)src[14]).Split('/').Select(TranslateExtra));
+            }
+
+            return item;
         }
 
         private string TranslateType(string type)
@@ -79,10 +98,63 @@ namespace MiracleNikkiDataLoader.Loaders
 
                 case "妆容": return "メイク";
 
-                case "萤光之灵": return "?";
+                case "萤光之灵": return "？";
             }
 
-            return null;
+            throw new Exception();
+        }
+
+        private string TranslateExtra(string type)
+        {
+            switch (type)
+            {
+                case "": return "";
+                case "中性风": return "中性風";
+                case "大小姐": return "お嬢様";
+                case "欧式古典": return "中世ヨーロッパ風";
+                case "中式古典": return "クラシックチャイナ";
+                case "舞者": return "ダンサー";
+                case "波西米亚": return "ボヘミアン";
+                case "摇滚风": return "ロック";
+                case "和风": return "和風";
+                case "医务使者": return "メディカル";
+                case "OL": return "OL";
+                case "英伦": return "英国風";
+                case "哥特风": return "ゴシック";
+                case "洛丽塔": return "ロリータ";
+                case "童话系": return "メルヘン";
+                case "中式现代": return "モダンチャイナ";
+                case "民族风": return "エスニック";
+                case "军装": return "ミリタリー";
+                case "未来系": return "近未来";
+                case "小动物": return "小動物";
+                case "原宿系": return "原宿系";
+                case "森女系列": return "森ガール";
+                case "女神系": return "女神";
+                case "围裙": return "エプロン";
+                case "晚礼服": return "フォーマル";
+                case "碎花": return "小花柄";
+                case "女仆装": return "メイド";
+                case "民国服饰": return "レトロチャイナ";
+                case "旗袍": return "チャイナドレス";
+                case "婚纱": return "ウェディング";
+                case "防晒": return "UV対策";
+                case "居家服": return "部屋着";
+                case "牛仔布": return "デニム";
+                case "睡衣": return "ナイトウェア";
+                case "沐浴": return "バスタイム";
+                case "冬装": return "冬服";
+                case "兔女郎": return "バニー";
+                case "学院系": return "学生風";
+                case "泳装": return "水着";
+                case "海军风": return "ネイビー";
+                case "运动系": return "スポーティ";
+                case "侠客联盟": return "ワル";
+                case "雨季装备": return "雨の日";
+                case "pop": return "POP";
+                case "印度服饰": return "インド風";
+            }
+
             throw new Exception();
         }
 
