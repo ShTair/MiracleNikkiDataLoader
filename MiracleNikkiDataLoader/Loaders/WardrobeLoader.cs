@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MiracleNikkiDataLoader.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Jint;
-using MiracleNikkiDataLoader.Models;
 
 namespace MiracleNikkiDataLoader.Loaders
 {
@@ -12,13 +10,10 @@ namespace MiracleNikkiDataLoader.Loaders
     {
         public async Task<List<Item>> Load()
         {
-            var target = "http://seal.coding.me/qjnn/data/wardrobe.js";
-            var js = await Load(target);
+            var jint = new JintEngine();
+            await jint.Load("http://seal.coding.me/qjnn/data/wardrobe.js");
 
-            var engine = new Engine();
-            engine.Execute(js);
-
-            var wardrobe = GetObject(engine, "wardrobe", ConvertToItem);
+            var wardrobe = jint.GetObject("wardrobe", ConvertToItem);
             return wardrobe;
         }
 
@@ -157,25 +152,6 @@ namespace MiracleNikkiDataLoader.Loaders
             }
 
             throw new Exception();
-        }
-
-        private List<T> GetObject<T>(Engine engine, string name, Func<object, T> converter)
-        {
-            object[] o = GetObject(engine, name);
-            return o.Select(converter).ToList();
-        }
-
-        private dynamic GetObject(Engine engine, string name)
-        {
-            return engine.Global.GetProperty(name).Value.ToObject();
-        }
-
-        private async Task<string> Load(string target)
-        {
-            using (var hc = new HttpClient())
-            {
-                return await hc.GetStringAsync(target);
-            }
         }
     }
 }
