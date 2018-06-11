@@ -9,26 +9,26 @@ namespace MiracleNikkiDataLoader.Models
 
         public string Name { get; set; }
 
-        public string Kind { get; set; }
+        public string Type { get; set; }
 
-        public string Rarity { get; set; }
+        public int Stars { get; set; }
 
-        public string P11 { get; set; }
-        public string P12 { get; set; }
+        public string Gorgeous { get; set; }
+        public string Simple { get; set; }
 
-        public string P21 { get; set; }
-        public string P22 { get; set; }
+        public string Elegant { get; set; }
+        public string Active { get; set; }
 
-        public string P31 { get; set; }
-        public string P32 { get; set; }
+        public string Mature { get; set; }
+        public string Cute { get; set; }
 
-        public string P41 { get; set; }
-        public string P42 { get; set; }
+        public string Sexy { get; set; }
+        public string Pure { get; set; }
 
-        public string P51 { get; set; }
-        public string P52 { get; set; }
+        public string Cool { get; set; }
+        public string Warm { get; set; }
 
-        public string Tags { get; set; }
+        public string Extra { get; set; }
 
         public sealed class Map : ClassMap<Item>
         {
@@ -36,19 +36,19 @@ namespace MiracleNikkiDataLoader.Models
             {
                 Map(m => m.Id).Index(0);
                 Map(m => m.Name).Index(1);
-                Map(m => m.Kind).Index(2);
-                Map(m => m.Rarity).Index(3);
-                Map(m => m.P11).Index(4);
-                Map(m => m.P12).Index(5);
-                Map(m => m.P21).Index(6);
-                Map(m => m.P22).Index(7);
-                Map(m => m.P31).Index(8);
-                Map(m => m.P32).Index(9);
-                Map(m => m.P41).Index(10);
-                Map(m => m.P42).Index(11);
-                Map(m => m.P51).Index(12);
-                Map(m => m.P52).Index(13);
-                Map(m => m.Tags).Index(14);
+                Map(m => m.Type).Index(2);
+                Map(m => m.Stars).Index(3);
+                Map(m => m.Gorgeous).Index(4);
+                Map(m => m.Simple).Index(5);
+                Map(m => m.Elegant).Index(6);
+                Map(m => m.Active).Index(7);
+                Map(m => m.Mature).Index(8);
+                Map(m => m.Cute).Index(9);
+                Map(m => m.Sexy).Index(10);
+                Map(m => m.Pure).Index(11);
+                Map(m => m.Cool).Index(12);
+                Map(m => m.Warm).Index(13);
+                Map(m => m.Extra).Index(14);
             }
         }
 
