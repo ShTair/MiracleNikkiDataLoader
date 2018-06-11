@@ -20,8 +20,8 @@ namespace MiracleNikkiDataLoader
 
         private static async Task Run(string dir)
         {
-            var wl = new WardrobeLoader();
-            await wl.Load();
+            var wardrobeLoader = new WardrobeLoader();
+            var wardrobe = await wardrobeLoader.Load();
 
             var sem = new SemaphoreSlim(1);
 

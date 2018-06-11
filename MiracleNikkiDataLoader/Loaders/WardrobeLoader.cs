@@ -10,7 +10,7 @@ namespace MiracleNikkiDataLoader.Loaders
 {
     class WardrobeLoader
     {
-        public async Task Load()
+        public async Task<List<Item>> Load()
         {
             var target = "http://seal.coding.me/qjnn/data/wardrobe.js";
             var js = await Load(target);
@@ -19,6 +19,7 @@ namespace MiracleNikkiDataLoader.Loaders
             engine.Execute(js);
 
             var wardrobe = GetObject(engine, "wardrobe", ConvertToItem);
+            return wardrobe;
         }
 
         private Item ConvertToItem(dynamic src)
