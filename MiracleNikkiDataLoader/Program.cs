@@ -20,6 +20,9 @@ namespace MiracleNikkiDataLoader
 
         private static async Task Run(string dir)
         {
+            var wl = new WardrobeLoader();
+            await wl.Load();
+
             var sem = new SemaphoreSlim(1);
 
             var catalog = new ApplicationCatalog();
