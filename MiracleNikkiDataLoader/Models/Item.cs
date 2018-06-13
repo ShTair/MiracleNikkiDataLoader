@@ -30,6 +30,11 @@ namespace MiracleNikkiDataLoader.Models
 
         public string Extra { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Name} {Type}";
+        }
+
         public sealed class Map : ClassMap<Item>
         {
             public Map()
@@ -46,8 +51,8 @@ namespace MiracleNikkiDataLoader.Models
                 Map(m => m.Cute).Index(9);
                 Map(m => m.Sexy).Index(10);
                 Map(m => m.Pure).Index(11);
-                Map(m => m.Cool).Index(12);
-                Map(m => m.Warm).Index(13);
+                Map(m => m.Warm).Index(12);
+                Map(m => m.Cool).Index(13);
                 Map(m => m.Extra).Index(14);
             }
         }
@@ -103,6 +108,60 @@ namespace MiracleNikkiDataLoader.Models
                 case "肌": return 38;
 
                 case "メイク": return 39;
+            }
+
+            throw new Exception();
+        }
+
+        public static int GetTypeCode(string type)
+        {
+            switch (type)
+            {
+                case "ヘアスタイル": return 0;
+                case "ドレス": return 1;
+                case "コート": return 2;
+                case "トップス": return 3;
+                case "ボトムス": return 4;
+                case "靴下":
+                case "靴下・ガーター": return 5;
+                case "シューズ": return 6;
+
+                case "ヘッドアクセ":
+                case "ヴェール":
+                case "カチューシャ":
+
+                case "つけ耳":
+                case "耳飾り":
+
+                case "マフラー":
+                case "ネックレス":
+
+                case "右手飾り":
+                case "左手飾り":
+
+                case "手袋":
+
+                case "右手持ち":
+                case "左手持ち":
+                case "両手持ち":
+
+                case "腰飾り":
+
+                case "フェイス":
+                case "ボディ":
+                case "タトゥー":
+                case "羽根":
+                case "しっぽ":
+                case "前景":
+                case "後景":
+                case "吊り":
+                case "床":
+
+                case "肌": return 7;
+
+                case "メイク": return 8;
+
+                case "？": return -1;
             }
 
             throw new Exception();

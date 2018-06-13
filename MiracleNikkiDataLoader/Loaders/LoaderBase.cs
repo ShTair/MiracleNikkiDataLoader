@@ -13,6 +13,8 @@ namespace MiracleNikkiDataLoader.Loaders
         private string _url;
         private Func<int, string> _kindGetter;
 
+        abstract protected int TypeCode { get; }
+
         public LoaderBase(string url) : this(url, kindGetter: null) { }
 
         public LoaderBase(string url, string kind) : this(url, _ => kind) { }
@@ -25,11 +27,30 @@ namespace MiracleNikkiDataLoader.Loaders
             _kindGetter = kindGetter;
         }
 
-        public virtual async Task<IEnumerable<Item>> LoadItems()
+        public virtual async Task<IEnumerable<Item>> LoadItems(List<Item> wardrobe)
+        {
+            Dictionary<int, Item> wr;
+            lock (wardrobe)
+            {
+                wr = wardrobe.Where(t => Item.GetTypeCode(t.Type) == TypeCode).ToDictionary(t => t.Id);
+            }
+
+            return await LoadItems(wr);
+        }
+
+        public virtual async Task<IEnumerable<Item>> LoadItems(Dictionary<int, Item> wardrobe)
         {
             var config = Configuration.Default.WithDefaultLoader();
             var doc = await BrowsingContext.New(config).OpenAsync(_url);
-            return GetItems(doc);
+
+            foreach (var item in GetItems(doc))
+            {
+                Item ti;
+                if (wardrobe.TryGetValue(item.Id, out ti)) ti.Name = item.Name;
+                else wardrobe.Add(item.Id, item);
+            }
+
+            return wardrobe.Values;
         }
 
         protected virtual IEnumerable<Item> GetItems(IDocument doc)
@@ -56,8 +77,8 @@ namespace MiracleNikkiDataLoader.Loaders
                         Cute = datas[9].ToUpper(),
                         Sexy = datas[10].ToUpper(),
                         Pure = datas[11].ToUpper(),
-                        Cool = datas[12].ToUpper(),
-                        Warm = datas[13].ToUpper(),
+                        Warm = datas[12].ToUpper(),
+                        Cool = datas[13].ToUpper(),
                         Extra = (datas[14] + " " + datas[15]).Trim(),
                     };
                 }

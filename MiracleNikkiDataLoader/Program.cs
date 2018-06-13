@@ -31,7 +31,7 @@ namespace MiracleNikkiDataLoader
 
             var tasks = loaders.Select(loader => Task.Run(async () =>
             {
-                var items = (await loader.LoadItems()).OrderBy(t => t.Id).ToList();
+                var items = (await loader.LoadItems(wardrobe)).OrderBy(t => t.Id).ToList();
                 var path = Path.Combine(dir, $"{loader.Name}.csv");
 
                 try

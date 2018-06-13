@@ -8,6 +8,6 @@ namespace MiracleNikkiDataLoader.Loaders
     {
         string Name { get; }
 
-        Task<IEnumerable<Item>> LoadItems();
+        Task<IEnumerable<Item>> LoadItems(List<Item> wardrobe);
     }
 }
